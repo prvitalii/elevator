@@ -1,0 +1,74 @@
+.container{
+	height: 600px;
+	margin-top: -10px;
+}
+#building{
+	position: relative;
+	height: 600px;
+	width: 1000px;
+	left: 50%;
+	transform: translateX(-50%);
+	margin-top: -10px;
+}
+#elevator{
+	position: absolute;
+	top: 470px;
+	left: 50%;
+	transform: translateX(-190%);
+	height: 75px;
+	width: 47px;
+	z-index: 1;
+}
+#remote{
+	position: absolute;
+	top: 200px;
+	right: 50%;
+	transform: translateX(500%);
+	width: 50px;
+	height: 195px;
+	background-color: purple;
+	border-radius: 10px;
+	border: 1px solid black;
+}
+.floorRem{
+	position: absolute;
+	width: 25px;
+	height: 30px;
+	left: 50%;
+	transform: translateX(-145%);
+	background-color: purple;
+	border-radius: 5px;
+}
+.floorRem .btn{
+	left: -4px;
+	top: 0px;
+	/*width: 10px;*/
+	/*height: 10px;*/
+	/*border-radius: 5px;*/
+}
+.signalLight{
+	position: absolute;
+	top: 20px;
+	left: 50%;
+	transform: translateX(-135%);
+	width: 25px;
+	height: 10px;
+	border-radius: 5px;
+	background-color: red;
+	border: 1px solid black;
+}
+.btn{
+	position: relative;
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	background-color: orange;
+	border: 1px solid black;
+	margin: 5px;
+	text-align: center;
+	left: 8px;
+}
+.btn:hover{
+	background-color: blue;
+	cursor: pointer;
+}
