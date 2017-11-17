@@ -17,34 +17,43 @@
 	transform: translateX(-190%);
 	height: 75px;
 	width: 47px;
-	z-index: 1;
 }
-#remote{
+#elevator img:first-child{
+	width: 47px;
+	height: 75px;
+}
+#elevator img:last-child{
+	left: 4px;
+	top: -67px;
+	opacity: 0;
+}
+#elevRemote{
 	position: absolute;
-	top: 200px;
-	right: 50%;
-	transform: translateX(500%);
+	top: 120px;
 	width: 50px;
-	height: 195px;
-	background-color: purple;
-	border-radius: 10px;
-	border: 1px solid black;
-}
-.floorRem{
-	position: absolute;
-	width: 25px;
-	height: 30px;
+	height: 210px;
 	left: 50%;
-	transform: translateX(-145%);
-	background-color: purple;
-	border-radius: 5px;
+	transform: translateX(350%);
+	background-color: grey;
+	border-radius: 10px;
 }
-.floorRem .btn{
-	left: -4px;
-	top: 0px;
-	/*width: 10px;*/
-	/*height: 10px;*/
-	/*border-radius: 5px;*/
+#elevRemote div{
+	height: 30px;
+	line-height: 25px;
+	text-align: center;
+}
+#elevRemote div:first-child{
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+#elevRemote div:last-child{
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+#floorScreen{
+	height: 100px;
+	background-color: purple;
+	/*border: 1px solid black;*/
 }
 .signalLight{
 	position: absolute;
@@ -58,17 +67,78 @@
 	border: 1px solid black;
 }
 .btn{
-	position: relative;
+	background-color: grey;
+	cursor: pointer;
+
+}
+.btn:hover, .peopleBtn:hover{
+	background-color: green;
+	cursor: pointer;
+}
+.callBtn{
+	position: absolute;
+	left: 50%;
+	transform: translateX(-180%);
 	width: 20px;
 	height: 20px;
 	border-radius: 10px;
-	background-color: orange;
-	border: 1px solid black;
 	margin: 5px;
-	text-align: center;
-	left: 8px;
+	border: 1px solid black;
 }
-.btn:hover{
-	background-color: blue;
-	cursor: pointer;
+#floorContainer{
+	position: absolute;
+	height: 600px;
+	width: 100px;
+	top: 0px;
+	left: 50%;
+	transform: translateX(-10%);
+	z-index: 1;	
+}
+.floors{
+	height: 60px;
+	margin-bottom: 13px;
+	background-color: purple;
+	border: 1px solid grey;
+}
+#floorContainer div:first-child{
+	margin-top: 22.5px;
+}
+#floorContainer div:last-child{
+	height: 65px;
+	margin-top: 15px;
+}
+.floors img, #elevator img:last-child{
+	position: relative;
+	height: 60px;
+	width: 40px;
+	margin-top: 0px;
+}
+.peopleBtn{
+	position: absolute;
+	width: 90px;
+	height: 30px;
+	left: 50%;
+	transform: translateX(195%);
+	background-color: grey;
+	line-height: 30px;
+	text-align: center;
+	border-radius: 5px;
+}
+#sendPeople{
+	top: 380px;
+}
+#pickPeople{
+	top: 415px;
+}
+#info{
+	position: absolute;
+	width: 90px;
+	height: 50px;
+	top: 40px;
+	left: 50%;
+	background-color: grey;
+	border-radius: 10px;
+	transform: translateX(170%);	
+	padding: 10px 5px;
+	text-align: center;
 }
