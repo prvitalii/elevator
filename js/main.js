@@ -92,6 +92,7 @@ function MaxPeople(num){
 // get into the elevator function
 $("#pickPeople").click(function(){
 	$("#pickPeople").prop("disabled", true);
+	// add a person into the elevator
 	elevMax.addPeople();
 	var getInSignal = $(".signalLight");
 	for (let i = 0, max = getInSignal.length; i < max; i++){

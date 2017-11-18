@@ -59,7 +59,7 @@
 	position: absolute;
 	top: 20px;
 	left: 50%;
-	transform: translateX(-135%);
+	transform: translateX(-150%);
 	width: 25px;
 	height: 10px;
 	border-radius: 5px;
@@ -81,7 +81,7 @@
 .callBtn{
 	position: absolute;
 	left: 50%;
-	transform: translateX(-180%);
+	transform: translateX(-195%);
 	width: 20px;
 	height: 20px;
 	border-radius: 10px;
