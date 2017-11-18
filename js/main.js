@@ -3,42 +3,6 @@ $(document).ready(function(){
 	setDefault();
 	moveElevator();
 });
-
-var flag = true;
-var elevMax = new MaxPeople(0);
-function MaxPeople(num){
-	this.num = num;
-	this.addPeople = function(){
-		if (this.num > 2){
-			$("#info").text("There is no more room, sorry");
-			$("#info").css("background-color", "red");
-		    // alert("There is no more room, sorry");
-			flag = false;
-		    return this.num;
-		} else {
-		  flag = true;
-		  return this.num++;
-	  }
-	};
-	this.subPeople = function(){
-		if (this.num < 1){
-			$("#info").text("The elevator is empty");
-			$("#info").css("background-color", "red");
-		    // alert("The elevator is empty");
-		    flag = false;
-		    return this.num;
-		} else {
-		  	flag = true;
-			return this.num--;
-	  }
-	};
-	this.display = function(){
-		$("#info").text("Number of people inside: " + this.num);
-	};
-
-};
-
-
 // set up default settings
 function setDefault(){
 	$(".signalLight[data-val='" + 1 + "']")
@@ -83,37 +47,69 @@ function createControlElements(){
 		$("#floorContainer").append(floorArea);
 	};
 };
-// animate elevator moving
-function move(obj, elev, floor){
-	obj.animate({
-		top: elev
-	}, 1000, 
-	// set light at each floor to green if the elevator has arived
-	function(){
-		var signalLight = $(".signalLight[data-val='" + floor + "']")
-								.css("background-color", "green")
-								.attr("data-arr", "true");
-		$("#floorScreen").text(floor);
-	});
+// check for the max/min amount of people in the elevator
+var elevMax = new MaxPeople(0),
+	flag = true;
+function MaxPeople(num){
+	this.num = num;
+	this.addPeople = function(){
+		if (this.num > 2){
+			$("#info").css("background-color", "red");
+			$("#pickPeople").prop("disabled", true);
+			flag = false;
+		    return this.num;
+		} else {
+		  flag = true;
+		  $("#info").css("background-color", "grey");
+		  return this.num++;
+	  }
+	};
+	this.subPeople = function(){
+		if (this.num < 1){
+			$("#info").css("background-color", "red");
+		    flag = false;
+		    return this.num;
+		} else {
+		  	flag = true;
+			$("#pickPeople").prop("disabled", false);
+			$("#info").css("background-color", "grey");
+			return this.num--;
+	  }
+	};
+	this.display = function(){
+		if(this.num == 0){
+			$("#info").text("The elevator is empty");
+
+		} else if (this.num == 3){
+			$("#info").text("The elevator is full. Max: " + this.num + " persons");
+
+		} else{
+			$("#info").text("Number of people inside: " + this.num);
+		}
+	};
+
 };
 // get into the elevator function
 $("#pickPeople").click(function(){
+	$("#pickPeople").prop("disabled", true);
 	elevMax.addPeople();
 	var getInSignal = $(".signalLight");
 	for (let i = 0, max = getInSignal.length; i < max; i++){
 		if(getInSignal[i].getAttribute("data-arr") == "true" && flag == true){
-			elevMax.display();
 			var onFloor = getInSignal[i].getAttribute("data-val");
 			var floorDiv = $(".floors[data-val='" + onFloor + "']");
 			var theMan = floorDiv.children();
 
 			theMan
 				.animate({
-					left: "-77px"
+					left: "-77px",
 				},1000,
 					function(){
 						theMan.fadeOut("slow");
-				})
+						floorDiv.attr("data-ex", "none");
+						elevMax.display();
+			})
+
 		}
 	}
 });
@@ -123,7 +119,6 @@ $("#sendPeople").click(function(){
 	var getInSignal = $(".signalLight");
 	for (let i = 0, max = getInSignal.length; i < max; i++){
 		if(getInSignal[i].getAttribute("data-arr") == "true" && flag == true){
-			elevMax.display();
 			var theMan = $("#elevator img:last-child");
 			theMan
 				.animate(
@@ -133,7 +128,10 @@ $("#sendPeople").click(function(){
 				.animate(
 				{
 					left: "-40px"
-				},1000)
+				},1000,
+				function(){
+					elevMax.display();
+				})
 				.animate(
 				{
 					opacity: 0
@@ -144,7 +142,25 @@ $("#sendPeople").click(function(){
 				},1000)
 		}
 	}
-})	
+});		
+// animate elevator moving
+function move(obj, elev, floorNum, floorDiv){
+	obj.animate({
+		top: elev
+	}, 1000, 
+	// set light at each floor to green if the elevator has arived
+	function(){
+		var signalLight = $(".signalLight[data-val='" + floorNum + "']")
+								.css("background-color", "green")
+								.attr("data-arr", "true");
+		$("#floorScreen").text(floorNum);
+		if($(".floors")[floorDiv].hasAttribute("data-ex")){
+			$("#pickPeople").prop("disabled", true);
+		} else {
+			$("#pickPeople").prop("disabled", false);
+		}
+	});
+};
 // move the elevator by clicking a button
 function moveElevator(){
 	var altittude = ["10", "85", "160", "235", "310", "386", "470"];
@@ -155,25 +171,25 @@ function moveElevator(){
 		var floorNumber = this.getAttribute("data-val");
 		switch(floorNumber){
 			case "7":
-				move(elevator, altittude[0], 7);
+				move(elevator, altittude[0], 7, 0);
 				break;
 			case "6":
-				move(elevator, altittude[1], 6);
+				move(elevator, altittude[1], 6, 1);
 				break;
 			case "5":
-				move(elevator, altittude[2], 5);
+				move(elevator, altittude[2], 5, 2);
 				break;
 			case "4":
-				move(elevator, altittude[3], 4);
+				move(elevator, altittude[3], 4, 3);
 				break;
 			case "3":
-				move(elevator, altittude[4], 3);
+				move(elevator, altittude[4], 3, 4);
 				break;
 			case "2":
-				move(elevator, altittude[5], 2);
+				move(elevator, altittude[5], 2, 5);
 				break;
 			case "1":
-				move(elevator, altittude[6], 1);
+				move(elevator, altittude[6], 1, 6);
 				break;
 
 			default: 

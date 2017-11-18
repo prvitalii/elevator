@@ -75,6 +75,9 @@
 	background-color: green;
 	cursor: pointer;
 }
+.peopleBtn:disabled{
+	background-color: lightgrey;
+}
 .callBtn{
 	position: absolute;
 	left: 50%;
