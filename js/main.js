@@ -1,8 +1,11 @@
 $(document).ready(function(){
 	createControlElements();
-	reobotsAppear(100);
+	robotsAppear(100);
+	doFlickering();
 	setDefault();
 	moveElevator();
+	
+
 });
 // set up default settings
 function setDefault(){
@@ -40,7 +43,7 @@ function createControlElements(){
 	};
 };
 // create robots function
-function reobotsAppear(time){
+function robotsAppear(time){
 	for (let i = 6; i >= 0; i--){
 		time = time + 200;
 		setTimeout(function (){
@@ -55,8 +58,23 @@ function reobotsAppear(time){
 			$("#floorContainer").append(floorArea);
 		}, time);
 		
-	}
-}
+	};
+};
+// make gett in button change color(flicker) after all robots have appeared
+var flickering;
+function doFlickering(){
+	flickering = setTimeout(function(){
+		setInterval(function(){
+			$("#pickPeople").addClass("green");
+		},500);
+		setInterval(function(){
+			$("#pickPeople").removeClass("green");
+		},1000);
+	},1500);	
+};
+function stopFlickering(){
+	clearTimeout(flickering);
+};
 // check for the max/min amount of people in the elevator
 var elevMax = new MaxPeople(0),
 	flag = true;
@@ -107,7 +125,10 @@ function MaxPeople(num){
 
 };
 // get into the elevator function
-$("#pickPeople").click(getIn);
+$("#pickPeople").click(function(){
+	getIn();
+	stopFlickering();	
+});
 function getIn(){
 	$("#pickPeople").prop("disabled", true);
 	// add a person into the elevator
