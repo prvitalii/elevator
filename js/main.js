@@ -4,14 +4,12 @@ $(document).ready(function(){
 	setDefault();
 	moveElevator();
 });
-
 // set up default settings
 function setDefault(){
 	$(".signalLight[data-val='" + 1 + "']")
 		.css("background-color", "green")
 		.attr("data-arr", "true");
 };
-
 // crate call buttons, remote buttons, lights-indicators, safety lights;
 function createControlElements(){
 
@@ -41,7 +39,6 @@ function createControlElements(){
 		$(".container").append(light);
 	};
 };
-
 // create robots function
 function reobotsAppear(time){
 	for (let i = 6; i >= 0; i--){
@@ -60,7 +57,6 @@ function reobotsAppear(time){
 		
 	}
 }
-
 // check for the max/min amount of people in the elevator
 var elevMax = new MaxPeople(0),
 	flag = true;
@@ -110,7 +106,6 @@ function MaxPeople(num){
 	};
 
 };
-
 // get into the elevator function
 $("#pickPeople").click(getIn);
 function getIn(){
@@ -137,7 +132,6 @@ function getIn(){
 		}
 	}
 };
-
 // get out of the evelator function
 $("#sendPeople").click(getOut);
 function getOut(){
@@ -169,7 +163,6 @@ function getOut(){
 		}
 	}
 };		
-
 // animate elevator moving
 function move(obj, elev, floorNum, floorDiv){
 	obj.animate({
@@ -188,7 +181,6 @@ function move(obj, elev, floorNum, floorDiv){
 		}
 	});
 };
-
 // move the elevator by clicking a button
 function moveElevator(){
 	var altittude = ["10", "85", "160", "235", "310", "386", "470"];

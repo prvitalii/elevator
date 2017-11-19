@@ -103,8 +103,6 @@ body{
 .floors{
 	height: 60px;
 	margin-bottom: 15px;
-	/*background-color: purple;*/
-	/*border: 1px solid grey;*/
 }
 #floorContainer div:first-child{
 	margin-top: 22.5px;
