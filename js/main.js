@@ -1,14 +1,17 @@
 $(document).ready(function(){
 	createControlElements();
+	reobotsAppear(100);
 	setDefault();
 	moveElevator();
 });
+
 // set up default settings
 function setDefault(){
 	$(".signalLight[data-val='" + 1 + "']")
 		.css("background-color", "green")
 		.attr("data-arr", "true");
 };
+
 // crate call buttons, remote buttons, lights-indicators, safety lights;
 function createControlElements(){
 
@@ -36,17 +39,28 @@ function createControlElements(){
 						.attr("data-val", i+1)
 						.css("top", altitudeRev[i]-30);
 		$(".container").append(light);
-		// create floor divs	
-		var floorArea = $("<div/>")
-							.addClass("floors")
-							.attr("data-val", i+1);
-		var human = $("<img>")
-						.attr("src", "libs/theMan.png")
-						.attr("alt", "theMan");
-		floorArea.append(human);
-		$("#floorContainer").append(floorArea);
 	};
 };
+
+// create robots function
+function reobotsAppear(time){
+	for (let i = 6; i >= 0; i--){
+		time = time + 200;
+		setTimeout(function (){
+			// create floor divs	
+			var floorArea = $("<div/>")
+								.addClass("floors")
+								.attr("data-val", i+1);
+			var human = $("<img>")
+							.attr("src", "libs/theMan.png")
+							.attr("alt", "theMan");
+			floorArea.append(human);
+			$("#floorContainer").append(floorArea);
+		}, time);
+		
+	}
+}
+
 // check for the max/min amount of people in the elevator
 var elevMax = new MaxPeople(0),
 	flag = true;
@@ -60,7 +74,7 @@ function MaxPeople(num){
 		    return this.num;
 		} else {
 		  flag = true;
-		  $("#info").css("background-color", "grey");
+		  $("#info").css("background-color", "lightgrey");
 		  return this.num++;
 	  }
 	};
@@ -72,7 +86,7 @@ function MaxPeople(num){
 		} else {
 		  	flag = true;
 			$("#pickPeople").prop("disabled", false);
-			$("#info").css("background-color", "grey");
+			$("#info").css("background-color", "lightgrey");
 			return this.num--;
 	  }
 	};
@@ -80,17 +94,26 @@ function MaxPeople(num){
 		if(this.num == 0){
 			$("#info").text("The elevator is empty");
 
-		} else if (this.num == 3){
-			$("#info").text("The elevator is full. Max: " + this.num + " persons");
+		} else if (this.num > 2){
+			$("#info").html("The elevator is full! Max: <span style='font-size:20px; font-weight: bold; color:black'>" + this.num + "</span> people");
 
 		} else{
-			$("#info").text("Number of people inside: " + this.num);
+			switch(this.num){
+				case 1:
+					$("#info").html("<span style='font-size:20px; font-weight:bold; color:black'>" + this.num + "</span><br/> person");
+					break;
+				default:
+					$("#info").html("<span style='font-size:20px; font-weight:bold; color:black'>" + this.num + "</span><br/>people");
+
+			} 
 		}
 	};
 
 };
+
 // get into the elevator function
-$("#pickPeople").click(function(){
+$("#pickPeople").click(getIn);
+function getIn(){
 	$("#pickPeople").prop("disabled", true);
 	// add a person into the elevator
 	elevMax.addPeople();
@@ -113,9 +136,11 @@ $("#pickPeople").click(function(){
 
 		}
 	}
-});
+};
+
 // get out of the evelator function
-$("#sendPeople").click(function(){
+$("#sendPeople").click(getOut);
+function getOut(){
 	elevMax.subPeople();
 	var getInSignal = $(".signalLight");
 	for (let i = 0, max = getInSignal.length; i < max; i++){
@@ -143,7 +168,8 @@ $("#sendPeople").click(function(){
 				},1000)
 		}
 	}
-});		
+};		
+
 // animate elevator moving
 function move(obj, elev, floorNum, floorDiv){
 	obj.animate({
@@ -162,6 +188,7 @@ function move(obj, elev, floorNum, floorDiv){
 		}
 	});
 };
+
 // move the elevator by clicking a button
 function moveElevator(){
 	var altittude = ["10", "85", "160", "235", "310", "386", "470"];

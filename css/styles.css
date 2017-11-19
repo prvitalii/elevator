@@ -1,3 +1,6 @@
+body{
+	overflow: hidden;
+}
 .container{
 	height: 600px;
 	margin-top: -10px;
@@ -99,22 +102,18 @@
 }
 .floors{
 	height: 60px;
-	margin-bottom: 13px;
-	background-color: purple;
-	border: 1px solid grey;
+	margin-bottom: 15px;
+	/*background-color: purple;*/
+	/*border: 1px solid grey;*/
 }
 #floorContainer div:first-child{
 	margin-top: 22.5px;
-}
-#floorContainer div:last-child{
-	height: 65px;
-	margin-top: 15px;
 }
 .floors img, #elevator img:last-child{
 	position: relative;
 	height: 60px;
 	width: 40px;
-	margin-top: 0px;
+	margin-top: 2px;
 }
 .peopleBtn{
 	position: absolute;
@@ -139,7 +138,8 @@
 	height: 50px;
 	top: 40px;
 	left: 50%;
-	background-color: grey;
+	background-color: lightgrey;
+	color: grey;
 	border-radius: 10px;
 	transform: translateX(170%);	
 	padding: 10px 5px;
