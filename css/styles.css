@@ -130,8 +130,8 @@ body{
 #pickPeople{
 	top: 415px;
 }
-.transparent{
-	opacity: 0.5;
+.green{
+	background-color: green;
 }
 #info{
 	position: absolute;
