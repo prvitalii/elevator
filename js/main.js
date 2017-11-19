@@ -65,10 +65,10 @@ var flickering;
 function doFlickering(){
 	flickering = setTimeout(function(){
 		setInterval(function(){
-			$("#pickPeople").addClass("green");
+			$("#pickPeople").addClass("greenBg");
 		},500);
 		setInterval(function(){
-			$("#pickPeople").removeClass("green");
+			$("#pickPeople").removeClass("greenBg");
 		},1000);
 	},1500);	
 };
